@@ -1,0 +1,44 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background Circle -->
+  <circle cx="120" cy="120" r="110" fill="url(#grad1)" />
+
+  <!-- Paper / Document Icon -->
+  <rect x="70" y="55" width="100" height="130" rx="10" fill="white" stroke="#d9d9d9" stroke-width="4"/>
+  <line x1="85" y1="85" x2="155" y2="85" stroke="#b3b3b3" stroke-width="4"/>
+  <line x1="85" y1="105" x2="155" y2="105" stroke="#b3b3b3" stroke-width="4"/>
+  <line x1="85" y1="125" x2="140" y2="125" stroke="#b3b3b3" stroke-width="4"/>
+
+  <!-- Stylized Brain (Neural Network Style) -->
+  <path d="M120 140 
+          C105 140 92 127 92 112 
+          C92 97 105 84 120 84 
+          C135 84 148 97 148 112 
+          C148 127 135 140 120 140Z"
+        fill="url(#grad2)" stroke="#333" stroke-width="3"/>
+
+  <!-- Brain internal curves -->
+  <path d="M120 90 
+           C110 95 110 110 120 115 
+           C130 120 130 135 120 138" 
+        stroke="#444" stroke-width="3" fill="none"/>
+
+  <path d="M120 90 
+           C130 95 130 110 120 115 
+           C110 120 110 135 120 138" 
+        stroke="#444" stroke-width="3" fill="none"/>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="grad1" x1="0" y1="0" x2="240" y2="240">
+      <stop offset="0%" stop-color="#5B8DEF"/>
+      <stop offset="100%" stop-color="#7BC6FF"/>
+    </linearGradient>
+
+    <linearGradient id="grad2" x1="90" y1="80" x2="150" y2="150">
+      <stop offset="0%" stop-color="#FF7A7A"/>
+      <stop offset="100%" stop-color="#FFB6A6"/>
+    </linearGradient>
+  </defs>
+
+</svg>
