@@ -6,9 +6,12 @@ from typing import Optional, Dict
 from dotenv import load_dotenv
 import fitz  # PyMuPDF
 from openai import OpenAI
+from evaluation import compute_rouge, compute_bleu
+
 
 from pdf_utils import extract_text_from_pdf, split_into_sections
 from llm import summarize_baseline, summarize_cot
+
 # Load environment variables
 load_dotenv()
 
@@ -42,6 +45,15 @@ class SummarizeRequest(BaseModel):
     section_name: Optional[str] = None
 
 
+# ───────────────────────────────────────────────────────────────
+# Evaluation Request Model
+# ───────────────────────────────────────────────────────────────
+class EvaluationRequest(BaseModel):
+    system_summary: str
+    reference_summary: str
+    label: Optional[str] = None  # e.g., "baseline" or "cot"
+
+
 @app.get("/health")
 def health():
     return {"status": "ok", "model": MODEL}
@@ -70,3 +82,32 @@ async def summarize(req: SummarizeRequest):
         summary = summarize_baseline(req.text, req.section_name)
 
     return {"summary": summary, "use_cot": req.use_cot, "model": MODEL}
+
+
+@app.post("/evaluate")
+async def evaluate_summary(req: EvaluationRequest):
+    """
+    Evaluate a system-generated summary against a reference summary
+    using ROUGE and BLEU.
+    """
+    system = req.system_summary.strip()
+    reference = req.reference_summary.strip()
+
+    if system == "" or reference == "":
+        raise HTTPException(
+            status_code=400,
+            detail="Both system_summary and reference_summary must be non-empty.",
+        )
+
+    rouge_scores = compute_rouge(system, reference)
+    bleu_score = compute_bleu(system, reference)
+
+    return {
+        "label": req.label,
+        "rouge": {
+            "rouge1": rouge_scores["rouge1"],
+            "rouge2": rouge_scores["rouge2"],
+            "rougeL": rouge_scores["rougeL"],
+        },
+        "bleu": bleu_score,
+    }

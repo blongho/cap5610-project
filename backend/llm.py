@@ -43,10 +43,10 @@ def summarize_cot(text: str, section_name: str | None = None) -> LLMResponse:
     prompt = f"""
     You are an expert research assistant using Chain-of-Thought reasoning.
 
-    **TASK:** Analyze the provided text. Your total response must not exceed 500 words and contains no markdown formatting. Separate sections by headings (ALL CAPS) and empy lines. 
+    **TASK:** Analyze the provided text. Your total response must not exceed 500 words and contains no markdown formatting. Separate sections by headings (ALL CAPS) and empty lines. 
 
     **INSTRUCTIONS:**
-    First extract the citation of the paper as in the IEEE format. Then, provide a detailed reasoning trace ad defined below.
+    First extract the citation of the paper as in the IEEE format. Then, provide a detailed reasoning trace as defined below.
     1.  First, conduct a step-by-step internal analysis. Think about:
         - The core topic, claim, or contribution.
         - The key evidence, methods, or arguments used.
